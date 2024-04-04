@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:15 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 15:17:17 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:09:06 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ char	*ft_strstr(char *haystack, char *needle);
 char	*ft_strchr(const char *s, int c);
 int	ft_strlen(const char *str);
 char	*ft_substr(char const *s, int start, int len);
+char	**ft_split(char const *s, char c);
 
 #endif

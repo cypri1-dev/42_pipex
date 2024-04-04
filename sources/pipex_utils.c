@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:20 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 15:15:33 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:24:13 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_path(char **envp)
 
 int	check_env(char **envp)
 {
-	const char	*env = "USER";
+	const char	*env = "PATH";
 	char		*val_va;
 	int			i;
 
