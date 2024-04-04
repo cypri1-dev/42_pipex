@@ -6,7 +6,7 @@
 #    By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 13:47:22 by cyferrei          #+#    #+#              #
-#    Updated: 2024/04/04 15:16:29 by cyferrei         ###   ########.fr        #
+#    Updated: 2024/04/04 16:09:15 by cyferrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ SRC = ft_strncmp.c \
 		ft_strstr.c \
 		ft_strchr.c \
 		ft_strlen.c \
-		ft_substr.c
+		ft_substr.c \
+		ft_split.c
 
 NAME = libft_pipex.a
 OBJS = $(SRC:.c=.o)
