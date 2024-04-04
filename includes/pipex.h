@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:15 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/03 16:21:36 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:24:46 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_pipe
 enum	e_state
 {
 	ERROR_INPUT = 1,
+	ERROR_INFILE = 2,
 };
 
 /*all prototyopes*/
