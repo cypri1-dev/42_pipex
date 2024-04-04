@@ -6,12 +6,19 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:15 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/03 17:24:46 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:19:55 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
+/*definesgarbage for error*/
+
+# define ERROR_INPUT 1
+# define ERROR_INFILE 2
+# define ERROR_OUTFILE 3
+# define ERROR_PIPE 4
 
 /*all includes*/
 
@@ -39,16 +46,9 @@ typedef struct s_pipe
 	char	**args_cmd;
 }			t_pipe;
 
-/*enum garbage for error*/
-
-enum	e_state
-{
-	ERROR_INPUT = 1,
-	ERROR_INFILE = 2,
-};
-
 /*all prototyopes*/
 
-void	exit_error(enum e_state error);
+void	exit_error(int error);
+void	exit_perror(int error);
 
 #endif
