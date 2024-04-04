@@ -6,13 +6,20 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:20 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 14:44:17 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:15:33 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-//char	*get_path(char **envp)
+char	*get_path(char **envp)
+{
+	int i = 0;
+	
+	while (ft_strncmp("PATH", envp[i], 4))
+		i++;
+	return(ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5));
+}
 
 int	check_env(char **envp)
 {

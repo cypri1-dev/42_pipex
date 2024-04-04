@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:52:57 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 14:45:38 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:21:59 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ int	main(int argc, char **argv, char **envp)
 		close(my_pipe.infile);
 		exit_error("Error\nWError with outfile !\n");
 	}
+	my_pipe.paths = get_path(envp);
+	printf("path --> %s\n", my_pipe.paths);
 	close(my_pipe.infile);
 	close(my_pipe.outfile);
+	free(my_pipe.paths);
 	// if (pipe(my_pipe.tube) < 0)
 	// 	exit_perror(ERROR_PIPE);
 	return (0);
