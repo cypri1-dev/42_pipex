@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:52:57 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 12:38:11 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:45:38 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipe my_pipe;
 	
+	if(!check_env(envp))
+		exit_error("Error\nMissing environnement !\n");
+	//printf("test");
 	if (argc != 5)
-	{
-		exit_error(ERROR_INPUT);
-		return (0);
-	}
+		exit_error("Error\nNot enought arguments !\n");
 	my_pipe.infile = open(argv[1], O_RDONLY);
 	if (my_pipe.infile < 0)
-		exit_perror(ERROR_INFILE);
+		exit_error("Error\nError with intfile !\n");
 	my_pipe.outfile = open(argv[argc -1], O_TRUNC | O_CREAT | O_RDWR, 0644);
 	//printf("d = %d\n", my_pipe.outfile);
 	if (my_pipe.outfile < 0)
 	{
 		close(my_pipe.infile);
-		exit_perror(ERROR_OUTFILE);
+		exit_error("Error\nWError with outfile !\n");
 	}
 	close(my_pipe.infile);
 	close(my_pipe.outfile);

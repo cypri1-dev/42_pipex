@@ -6,19 +6,12 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:15 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 12:19:55 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:51:18 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-
-/*definesgarbage for error*/
-
-# define ERROR_INPUT 1
-# define ERROR_INFILE 2
-# define ERROR_OUTFILE 3
-# define ERROR_PIPE 4
 
 /*all includes*/
 
@@ -48,7 +41,12 @@ typedef struct s_pipe
 
 /*all prototyopes*/
 
-void	exit_error(int error);
-void	exit_perror(int error);
+void	exit_error(char *str);
+int	check_env(char **envp);
+
+void	ft_putstr_fd(char *s, int fd);
+char	*ft_strstr(char *haystack, char *needle);
+char	*ft_strchr(const char *s, int c);
+int	ft_strlen(const char *str);
 
 #endif
