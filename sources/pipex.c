@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:52:57 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 17:00:01 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:57:40 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 		exit_error("Error\nPipe failed !\n");
 	my_pipe.pid_1 = fork();
 	if (my_pipe.pid_1 == 0)
-		first_child_cmd(my_pipe, argv, envp);
+		first_child_process(my_pipe, argv, envp);
 	//printf("path --> %s\n", my_pipe.paths);
 	//dipslay_cmd(my_pipe.paths_cmd);
 	close(my_pipe.infile);
