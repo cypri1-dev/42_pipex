@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:15:54 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 15:17:38 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:03:10 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_substr(char const *s, int start, int len)
 {
 	char	*new;
-	int	i;
+	int		i;
 
 	if (!s)
 		return (NULL);
