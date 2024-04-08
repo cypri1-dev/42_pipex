@@ -6,7 +6,7 @@
 #    By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 15:46:01 by cyferrei          #+#    #+#              #
-#    Updated: 2024/04/04 14:07:04 by cyferrei         ###   ########.fr        #
+#    Updated: 2024/04/08 14:20:10 by cyferrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ GREY    = \e[38;5;254m
 RESET   = \e[00m
 
 SOURCE = ./sources/
-MAIN = pipex.c pipex_utils.c
+MAIN = pipex.c pipex_utils.c children_cmd.c
 PIPEX = $(addprefix $(SOURCE), $(MAIN))
 
 SRC = $(PIPEX)
