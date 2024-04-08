@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:15 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 19:57:48 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:51:24 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void	exit_error(char *str);
 int	check_env(char **envp);
 char	*get_path(char **envp);
 void	first_child_process(t_pipe my_pipe, char **argv, char **envp);
+void	second_child_process(t_pipe my_pipe, char **argv, char **envp);
+void	free_child_process(t_pipe *my_pipe);
+void 	free_parent_process(t_pipe *my_pipe);
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);
@@ -53,5 +56,6 @@ char	*ft_strchr(const char *s, int c);
 int	ft_strlen(const char *str);
 char	*ft_substr(char const *s, int start, int len);
 char	**ft_split(char const *s, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
