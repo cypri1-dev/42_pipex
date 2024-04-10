@@ -22,8 +22,15 @@ This is an overview of the main components located in the "sources" directory of
 | `sources/pipex.h`      | The header file containing function prototypes and macro declarations necessary for using the pipex program.                               |
 
 ## Usage
-
 To use the `pipex` program, compile it using the provided Makefile. Then, run the program with the required arguments:
-
 ```bash
 ./pipex infile "cmd1" "cmd2" outfile
+```
+## Features
+42_pipex offers the following features:
+
+- **Command Pipeline Simulation:** Executes the command pipeline `cmd1 | cmd2` to simulate the behavior of shell pipes.
+
+- **File Redirection:** Redirects input and output files as specified by the user to facilitate the execution of the command pipeline.
+
+- **Error Handling:** Properly handles errors and returns appropriate exit codes in case of failure.
