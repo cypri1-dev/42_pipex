@@ -1,2 +1,5 @@
-# 42_pipex
-You will find in this repo my pipex function ! Feel free to read it ! Do not stupidly copy/paste...
+##
+<h1><img src="https://github.com/ayogun/42-project-badges/blob/main/covers/cover-pipex-bonus.png?raw=true"</h1>
+
+## Description
+
