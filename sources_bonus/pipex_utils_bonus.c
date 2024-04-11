@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:15:59 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/11 16:06:12 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:40:44 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,19 @@ void	here_doc_infile(char *argv, t_pipeb *pipe)
 	}
 }
 
+void	init_outfile(char *argv, t_pipeb *pipe)
+{
+	if(pipe->here_doc)
+		pipe->outfile = open(argv, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		pipe->outfile = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if(pipe->outfile < 0)
+		exit_error("Error\nError with outfile!\n");
+}
+
 void	init_infile(char **argv, t_pipeb *pipe)
 {
-	if(ft_strncmp("heredoc", argv[1], 9) == 0)
+	if(ft_strncmp("here_doc", argv[1], 9) == 0)
 		here_doc_infile(argv[2], pipe);
 	else
 	{	

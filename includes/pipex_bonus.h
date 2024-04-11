@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:29:32 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/11 16:03:26 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:00:11 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_pipeb
 void	exit_error(char *str);
 void	init_infile(char **argv, t_pipeb *pipe);
 void	here_doc_infile(char *argv, t_pipeb *pipe);
+void	init_outfile(char *argv, t_pipeb *pipe);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);

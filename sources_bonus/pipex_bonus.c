@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:27:58 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/11 16:04:51 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:45:26 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,10 @@ int	main(int argc, char **argv, char **envp)
 		exit_error("Error\nInvalid args detected!\n");
 	//printf("here_doc --> %d (1-yes | 0-no)\n", pipe.here_doc);
 	init_infile(argv, &pipe);
+	init_outfile(argv[argc - 1], &pipe);
+	pipe.nb_cmd = argc - 3 - pipe.here_doc;
+	printf("nmbrs of cmd --> %d\n", pipe.nb_cmd);
+	pipe.nb_pipe = 2 * (pipe.nb_cmd - 1);
+	printf("nmbrs of pipe --> %d\n", pipe.nb_pipe);
 	return (0);
 }
