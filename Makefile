@@ -6,7 +6,7 @@
 #    By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 15:46:01 by cyferrei          #+#    #+#              #
-#    Updated: 2024/04/08 14:20:10 by cyferrei         ###   ########.fr        #
+#    Updated: 2024/04/11 12:59:16 by cyferrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,13 +35,25 @@ GREY    = \e[38;5;254m
 RESET   = \e[00m
 
 SOURCE = ./sources/
+SOURCE_BONUS = ./sources_bonus/
 MAIN = pipex.c pipex_utils.c children_cmd.c
+MAIN_BONUS = pipex_bonus.c pipex_utils_bonus.c
 PIPEX = $(addprefix $(SOURCE), $(MAIN))
+PIPEX_BONUS = $(addprefix $(SOURCE_BONUS), $(MAIN_BONUS))
 
 SRC = $(PIPEX)
+SRC_BONUS = $(PIPEX_BONUS)
 OBJS = $(SRC:%.c=%.o)
+OBJS_BONUS = $(SRC_BONUS:%.c=%.o)
 
 all: $(NAME)
+
+bonus: $(OBJS_BONUS)
+	@echo "$(BOLD)Linking...$(RESET)"
+	@make -sC $(LIBFT_PIPEX_PATH)
+	$(RM) $(NAME)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_PIPEX) -o $(NAME)
+	@echo "$(GREEN)Executable bonus'$(NAME)' created successfully!$(RESET)"
 
 $(NAME): $(OBJS)
 	@echo "$(BOLD)Linking...$(RESET)"
@@ -58,6 +70,7 @@ $(NAME): $(OBJS)
 clean:
 	@echo "$(BOLD)Cleaning object files...$(RESET)"
 	$(RM) $(OBJS)
+	$(RM) $(OBJS_BONUS)
 	@make -s clean -C $(LIBFT_PIPEX_PATH)
 	@echo "$(GREEN)Object files cleaned successfully!$(RESET)"
 
@@ -69,4 +82,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean bonus re
