@@ -6,7 +6,7 @@
 #    By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 13:47:22 by cyferrei          #+#    #+#              #
-#    Updated: 2024/04/11 12:18:31 by cyferrei         ###   ########.fr        #
+#    Updated: 2024/04/11 14:52:20 by cyferrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRC = ft_strncmp.c \
 		ft_strlen.c \
 		ft_substr.c \
 		ft_split.c \
-		ft_strjoin.c
+		ft_strjoin.c \
+		get_next_line.c \
+		get_next_line_utils.c
 
 NAME = libft_pipex.a
 OBJS = $(SRC:.c=.o)
