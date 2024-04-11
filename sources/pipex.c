@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:52:57 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/08 17:22:00 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:17:06 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 	parse_pipex(envp, argc);
 	my_pipe.infile = open(argv[1], O_RDONLY);
 	if (my_pipe.infile < 0)
-		exit_error("Error\nError with intfile !\n");
+		exit_error("Error\nError with infile !\n");
 	my_pipe.outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (my_pipe.outfile < 0)
 		exit_error("Error\nWError with outfile !\n");
