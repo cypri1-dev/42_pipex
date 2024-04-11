@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:27:58 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/11 13:01:34 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:04:51 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)envp;
 	if(argc < parse_args(argv[1], &pipe))
 		exit_error("Error\nInvalid args detected!\n");
-	printf("here_doc --> %d (1-yes | 0-no)\n", pipe.here_doc);
-	return(0);
+	//printf("here_doc --> %d (1-yes | 0-no)\n", pipe.here_doc);
+	init_infile(argv, &pipe);
+	return (0);
 }
