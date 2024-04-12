@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 09:19:02 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/11 17:27:05 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:03:17 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	exit_free_error(char *str)
 {
 	if(str)
 		free(str);
-	return (-1);
+	exit(1);
 }
 
 int	find_new_line(char *str)
@@ -98,9 +98,15 @@ int	get_next_line(int fd, char **line)
 	if(!buffer)
 		return(exit_free_error(buffer));
 	read_line = 1;
-	while(!*buffer || buffer[ft_strlen(buffer) - 1] != '\n')
+	while(read_line != 0 && (!*buffer || buffer[ft_strlen(buffer) - 1] != '\n'))
 	{
 		read_line = read(fd, buffer, BUFFER_SIZE);
+		if(read_line == 0)
+		{
+			*line = buffer;
+			return(0);
+		}
+		dprintf(2, "%d\n", read_line);
 		if(read_line < 0)
 			exit_free_error(buffer);
 	}
