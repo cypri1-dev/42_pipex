@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:29:32 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/11 18:00:11 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:40:28 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_pipeb
 	int here_doc;
 	int nb_cmd;
 	int nb_pipe;
-	int *pipe;
+	int *tube;
 	int index;
 }			t_pipeb;
 
@@ -71,5 +71,6 @@ int	get_next_line(int fd, char **line);
 char	*obtain_rest(char *str);
 char	*obtain_line(char *str);
 static char	*read_file(char *final_buffer, int fd);
+char	*get_path(char **envp);
 
 #endif
