@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:29:32 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/12 15:40:28 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:10:25 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void	exit_error(char *str);
 void	init_infile(char **argv, t_pipeb *pipe);
 void	here_doc_infile(char *argv, t_pipeb *pipe);
 void	init_outfile(char *argv, t_pipeb *pipe);
+void	close_tubes(t_pipeb *my_pipe);
+void	children_process(t_pipeb my_pipe, char **argv, char **envp);
+void	free_children_process(t_pipeb *my_pipe);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);

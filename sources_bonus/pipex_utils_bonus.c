@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:15:59 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/12 17:04:13 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:12:37 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	init_outfile(char *argv, t_pipeb *my_pipe)
 	else
 		my_pipe->outfile = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(my_pipe->outfile < 0)
+	{
+		close(my_pipe->infile);
 		exit_error("Error\nError with outfile!\n");
+	}
 }
 
 void	init_infile(char **argv, t_pipeb *my_pipe)

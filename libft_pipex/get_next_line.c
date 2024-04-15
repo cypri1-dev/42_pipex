@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 09:19:02 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/12 17:03:17 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/15 18:42:21 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	get_next_line(int fd, char **line)
 			*line = buffer;
 			return(0);
 		}
-		dprintf(2, "%d\n", read_line);
+		//dprintf(2, "%d\n", read_line);
 		if(read_line < 0)
 			exit_free_error(buffer);
 	}
