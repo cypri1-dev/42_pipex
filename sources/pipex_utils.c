@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:20 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/12 17:32:56 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:02:09 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,6 @@ char	*get_path(char **envp)
 	while (ft_strncmp("PATH", envp[i], 4))
 		i++;
 	return (ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5));
-}
-
-int	check_env(char **envp)
-{
-	const char	*env = "PATH";
-	char		*val_va;
-	int			i;
-
-	val_va = NULL;
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		if (ft_strstr(envp[i], (char *)env) == envp[i])
-		{
-			val_va = ft_strchr(envp[i], '=') + 1;
-			break ;
-		}
-		i++;
-	}
-	if (val_va == NULL)
-		return (0);
-	else
-		return (1);
 }
 
 void	exit_error(char *str)

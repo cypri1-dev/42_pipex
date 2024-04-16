@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:15:59 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 15:34:00 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:05:51 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	here_doc_infile(char *argv, t_pipeb *my_pipe)
 	buffer = NULL;
 	fd = open(".here_doc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-		exit_error("Error!\nError with here_doc\n");
+		exit_error("Error\nFailed to open temporary file!\n");
 	while (1)
 	{
 		write(1, "heredoc>", 9);
@@ -47,7 +47,7 @@ void	here_doc_infile(char *argv, t_pipeb *my_pipe)
 	if (my_pipe->infile < 0)
 	{
 		unlink(".here_doc_tmp");
-		exit_error("Error\nError with heredoc!\n");
+		exit_error("Error\nFailed to open temporary input file!\n");
 	}
 }
 
@@ -60,7 +60,7 @@ void	init_outfile(char *argv, t_pipeb *my_pipe)
 	if (my_pipe->outfile < 0)
 	{
 		close(my_pipe->infile);
-		exit_error("Error\nError with outfile!\n");
+		exit_error("Error\nFailed to open output file!\n");
 	}
 }
 
@@ -72,7 +72,7 @@ void	init_infile(char **argv, t_pipeb *my_pipe)
 	{
 		my_pipe->infile = open(argv[1], O_RDONLY);
 		if (my_pipe->infile < 0)
-			exit_error("Error\nError with infile !\n");
+			exit_error("Error\nFailed to open intput file!\n");
 	}
 }
 

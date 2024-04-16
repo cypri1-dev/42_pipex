@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:27:58 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 15:36:44 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:43:48 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	close_and_free(t_pipeb *my_pipe)
 	if (my_pipe->here_doc)
 		unlink(".here_doc_tmp");
 	free(my_pipe->tube);
-	exit_error("Error\nError while init command paths!\n");
+	exit_error("Error\nFailed to split paths!\n");
 }
 
 static int	parse_args(char *first_arg, t_pipeb *my_pipe)
@@ -76,15 +76,15 @@ int	main(int argc, char **argv, char **envp)
 	t_pipeb	my_pipe;
 
 	if (!*envp)
-		return (1);
+		return (exit_error("Error\nMissing environnement!\n"), (1));
 	if (argc < parse_args(argv[1], &my_pipe))
-		exit_error("Error\nInvalid args detected!\n");
+		exit_error("Error\nNot enought arguments!\n");
 	(init_infile(argv, &my_pipe), init_outfile(argv[argc - 1], &my_pipe));
 	my_pipe.nb_cmd = argc - 3 - my_pipe.here_doc;
 	my_pipe.nb_pipe = 2 * (my_pipe.nb_cmd - 1);
 	my_pipe.tube = (int *)malloc(sizeof(int) * (my_pipe.nb_pipe));
 	if (!my_pipe.tube)
-		exit_error("Error\nError whith malloc pipes!\n");
+		exit_error("Error\nFailed to allocate memory for pipes!\n");
 	my_pipe.path_env = get_path(envp);
 	my_pipe.paths_cmd = ft_split(my_pipe.path_env, ':');
 	if (!my_pipe.paths_cmd)

@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:57:00 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/15 15:42:48 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:27:33 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	first_child_process(t_pipe my_pipe, char **argv, char **envp)
 	if (!my_pipe.cmd)
 	{
 		free_child_process(&my_pipe);
-		exit_error("Error\nFailed to execute first command !");
+		exit_error("Error\nFailed to execute first command!\n");
 	}
 	execve(my_pipe.cmd, my_pipe.args_cmd, envp);
 }
@@ -65,7 +65,7 @@ void	second_child_process(t_pipe my_pipe, char **argv, char **envp)
 	if (!my_pipe.cmd)
 	{
 		free_child_process(&my_pipe);
-		exit_error("Error\nFailed to execute second command !");
+		exit_error("Error\nFailed to execute second command!\n");
 	}
 	execve(my_pipe.cmd, my_pipe.args_cmd, envp);
 }

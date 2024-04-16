@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:36:51 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 15:34:22 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:03:31 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	tube_in_out(int in, int out)
 void	children_process(t_pipeb my_pipeb, char **argv, char **envp)
 {
 	my_pipeb.pid = fork();
+	if (my_pipeb.pid == -1)
+		(close_tubes(&my_pipeb), free_children_process(&my_pipeb), exit(1));
 	if (!my_pipeb.pid)
 	{
 		if (my_pipeb.index == 0)
