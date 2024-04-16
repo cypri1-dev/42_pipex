@@ -6,11 +6,12 @@
 #    By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 15:46:01 by cyferrei          #+#    #+#              #
-#    Updated: 2024/04/16 13:17:50 by cyferrei         ###   ########.fr        #
+#    Updated: 2024/04/16 18:16:42 by cyferrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
+NAME_BONUS = pipex_bonus
 CC = cc
 RM = rm -rf
 CFLAGS = -Werror -Wextra -Werror -g3
@@ -47,13 +48,13 @@ OBJS = $(SRC:%.c=%.o)
 OBJS_BONUS = $(SRC_BONUS:%.c=%.o)
 
 all: $(NAME)
+bonus: $(NAME_BONUS)
 
-bonus: $(OBJS_BONUS)
+$(NAME_BONUS): $(OBJS_BONUS)
 	@echo "$(BOLD)Linking...$(RESET)"
 	@make -sC $(LIBFT_PIPEX_PATH)
-	$(RM) $(NAME)
-	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_PIPEX) -o $(NAME)
-	@echo "$(GREEN)Executable bonus'$(NAME)' created successfully!$(RESET)"
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_PIPEX) -o $(NAME_BONUS)
+	@echo "$(GREEN)Executable bonus'$(NAME_BONUS)' created successfully!$(RESET)"
 
 $(NAME): $(OBJS)
 	@echo "$(BOLD)Linking...$(RESET)"
@@ -74,10 +75,10 @@ clean:
 	@make -s clean -C $(LIBFT_PIPEX_PATH)
 	@echo "$(GREEN)Object files cleaned successfully!$(RESET)"
 
-fclean: clean
+fclean: clean 
 	@echo "$(BOLD)Cleaning executable...$(RESET)"
 	@make -s fclean -C $(LIBFT_PIPEX_PATH)
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(NAME_BONUS)
 	@echo "$(GREEN)Executable cleaned successfully!$(RESET)"
 
 re: fclean all
