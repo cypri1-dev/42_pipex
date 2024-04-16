@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:57:00 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 17:27:33 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:23:39 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@ static char	*make_cmd(char **paths, char *cmd)
 	int		i;
 
 	i = 0;
+	if (cmd == NULL)
+		return (NULL);
+	if (access(cmd, F_OK | X_OK) == 0)
+	{
+		final_cmd = cmd;
+		return (final_cmd);
+	}
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
@@ -29,13 +36,14 @@ static char	*make_cmd(char **paths, char *cmd)
 		free(final_cmd);
 		i++;
 	}
-	if (final_cmd)
-		free(final_cmd);
 	return (NULL);
 }
 
 void	first_child_process(t_pipe my_pipe, char **argv, char **envp)
 {
+	int	i;
+
+	i = 0;
 	dup2(my_pipe.infile, STDIN_FILENO);
 	close(my_pipe.infile);
 	close(my_pipe.outfile);
@@ -47,6 +55,13 @@ void	first_child_process(t_pipe my_pipe, char **argv, char **envp)
 	if (!my_pipe.cmd)
 	{
 		free_child_process(&my_pipe);
+		while (my_pipe.paths_cmd[i])
+		{
+			free(my_pipe.paths_cmd[i]);
+			i++;
+		}
+		free(my_pipe.paths_cmd);
+		free(my_pipe.paths);
 		exit_error("Error\nFailed to execute first command!\n");
 	}
 	execve(my_pipe.cmd, my_pipe.args_cmd, envp);
@@ -54,6 +69,9 @@ void	first_child_process(t_pipe my_pipe, char **argv, char **envp)
 
 void	second_child_process(t_pipe my_pipe, char **argv, char **envp)
 {
+	int	i;
+
+	i = 0;
 	dup2(my_pipe.tube[0], STDIN_FILENO);
 	close(my_pipe.tube[0]);
 	close(my_pipe.tube[1]);
@@ -65,6 +83,13 @@ void	second_child_process(t_pipe my_pipe, char **argv, char **envp)
 	if (!my_pipe.cmd)
 	{
 		free_child_process(&my_pipe);
+		while (my_pipe.paths_cmd[i])
+		{
+			free(my_pipe.paths_cmd[i]);
+			i++;
+		}
+		free(my_pipe.paths_cmd);
+		free(my_pipe.paths);
 		exit_error("Error\nFailed to execute second command!\n");
 	}
 	execve(my_pipe.cmd, my_pipe.args_cmd, envp);

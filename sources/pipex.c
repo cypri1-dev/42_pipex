@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:52:57 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 17:58:39 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:40:01 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	parse_pipex(char **envp, int argc)
 	if (!*envp)
 		exit_error("Error\nMissing environnement!\n");
 	if (argc != 5)
-		exit_error("Error\nNot enought arguments!\n");
+		exit_error("Error\nInvalid numbers of arguments!\n");
 	return ;
 }
 
