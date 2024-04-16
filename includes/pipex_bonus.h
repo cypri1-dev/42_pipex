@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:29:32 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/15 16:10:25 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:42:49 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,47 +33,51 @@
 
 typedef struct s_pipeb
 {
-	pid_t pid;
-	int	infile;
-	int outfile;
-	char **paths_cmd;
-	char **args_cmd;
-	char *path_env;
-	char *cmd;
-	int here_doc;
-	int nb_cmd;
-	int nb_pipe;
-	int *tube;
-	int index;
+	pid_t	pid;
+	int		infile;
+	int		outfile;
+	char	**paths_cmd;
+	char	**args_cmd;
+	char	*path_env;
+	char	*cmd;
+	int		here_doc;
+	int		nb_cmd;
+	int		nb_pipe;
+	int		*tube;
+	int		index;
 }			t_pipeb;
 
 /*all prototypes functions*/
 
-void	exit_error(char *str);
-void	init_infile(char **argv, t_pipeb *pipe);
-void	here_doc_infile(char *argv, t_pipeb *pipe);
-void	init_outfile(char *argv, t_pipeb *pipe);
-void	close_tubes(t_pipeb *my_pipe);
-void	children_process(t_pipeb my_pipe, char **argv, char **envp);
-void	free_children_process(t_pipeb *my_pipe);
+void		exit_error(char *str);
+void		init_infile(char **argv, t_pipeb *pipe);
+void		here_doc_infile(char *argv, t_pipeb *pipe);
+void		init_outfile(char *argv, t_pipeb *pipe);
+void		close_tubes(t_pipeb *my_pipe);
+void		children_process(t_pipeb my_pipe, char **argv, char **envp);
+void		free_children_process(t_pipeb *my_pipe);
+void		tube_in_out(int in, int out);
+void		fisrt_pipe(t_pipeb *my_pipe);
+void		last_pipe(t_pipeb *my_pipe);
+void		intermediate_pipe(t_pipeb *my_pipe);
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	ft_putstr_fd(char *s, int fd);
-char	*ft_strstr(char *haystack, char *needle);
-char	*ft_strchr(const char *s, int c);
-int		ft_strlen(const char *str);
-char	*ft_substr(char const *s, int start, int len);
-char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char const *s1, char const *s2);
-void	*ft_calloc(size_t nmeb, size_t size);
-void	ft_bzero(void *s, size_t n);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-char	*ft_strjoin(char const *s1, char const *s2);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+void		ft_putstr_fd(char *s, int fd);
+char		*ft_strstr(char *haystack, char *needle);
+char		*ft_strchr(const char *s, int c);
+int			ft_strlen(const char *str);
+char		*ft_substr(char const *s, int start, int len);
+char		**ft_split(char const *s, char c);
+char		*ft_strjoin(char const *s1, char const *s2);
+void		*ft_calloc(size_t nmeb, size_t size);
+void		ft_bzero(void *s, size_t n);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
+char		*ft_strjoin(char const *s1, char const *s2);
 
-int	get_next_line(int fd, char **line);
-char	*obtain_rest(char *str);
-char	*obtain_line(char *str);
+int			get_next_line(int fd, char **line);
+char		*obtain_rest(char *str);
+char		*obtain_line(char *str);
 static char	*read_file(char *final_buffer, int fd);
-char	*get_path(char **envp);
+char		*get_path(char **envp);
 
 #endif

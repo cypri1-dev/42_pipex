@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:32:09 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/11 15:43:58 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:29:54 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /*All includes*/
 
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 1024
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>

@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:36:51 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/15 20:50:49 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:34:22 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*make_cmd(char **paths, char *cmd)
 	if (access(cmd, F_OK | X_OK) == 0)
 	{
 		final_cmd = cmd;
-		return final_cmd;
+		return (final_cmd);
 	}
 	while (paths[i])
 	{
@@ -62,17 +62,17 @@ static char	*make_cmd(char **paths, char *cmd)
 
 void	close_tubes(t_pipeb *my_pipe)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < my_pipe->nb_pipe)
+	while (i < my_pipe->nb_pipe)
 	{
 		close(my_pipe->tube[i]);
 		i++;
 	}
 }
 
-static void tube_in_out(int in, int out)
+void	tube_in_out(int in, int out)
 {
 	dup2(in, STDIN_FILENO);
 	dup2(out, STDOUT_FILENO);
@@ -84,33 +84,23 @@ void	children_process(t_pipeb my_pipeb, char **argv, char **envp)
 	if (!my_pipeb.pid)
 	{
 		if (my_pipeb.index == 0)
-		{
-			close(my_pipeb.outfile);
-			tube_in_out(my_pipeb.infile, my_pipeb.tube[1]);
-			close(my_pipeb.infile);
-		}
-		else if (my_pipeb.index == my_pipeb.nb_cmd -1)
-		{
-			close(my_pipeb.infile);
-			tube_in_out(my_pipeb.tube[2 * my_pipeb.index - 2], my_pipeb.outfile);
-			close(my_pipeb.outfile);
-		}
+			fisrt_pipe(&my_pipeb);
+		else if (my_pipeb.index == my_pipeb.nb_cmd - 1)
+			last_pipe(&my_pipeb);
 		else
-		{
-			close(my_pipeb.infile);
-			close(my_pipeb.outfile);
-			tube_in_out(my_pipeb.tube[2 * my_pipeb.index - 2], my_pipeb.tube[2 * my_pipeb.index + 1]);
-		}
+			intermediate_pipe(&my_pipeb);
 		close_tubes(&my_pipeb);
-		my_pipeb.args_cmd = ft_split(argv[2 + my_pipeb.here_doc + my_pipeb.index], ' ');
+		my_pipeb.args_cmd = ft_split(argv[2 + my_pipeb.here_doc
+				+ my_pipeb.index], ' ');
 		my_pipeb.cmd = make_cmd(my_pipeb.paths_cmd, my_pipeb.args_cmd[0]);
-		if(my_pipeb.cmd == NULL)
+		if (my_pipeb.cmd == NULL)
 		{
-			ft_putstr_fd("Command not found: ", 2);
+			write(2, "Command not found: ", 20);
 			write(2, my_pipeb.args_cmd[0], ft_strlen(my_pipeb.args_cmd[0]));
+			write(2, "\n", 1);
 			free_children_process(&my_pipeb);
 			exit(1);
 		}
 		execve(my_pipeb.cmd, my_pipeb.args_cmd, envp);
-	}	
+	}
 }

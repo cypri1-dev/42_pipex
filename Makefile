@@ -6,7 +6,7 @@
 #    By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 15:46:01 by cyferrei          #+#    #+#              #
-#    Updated: 2024/04/15 16:11:07 by cyferrei         ###   ########.fr        #
+#    Updated: 2024/04/16 13:17:50 by cyferrei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ RESET   = \e[00m
 SOURCE = ./sources/
 SOURCE_BONUS = ./sources_bonus/
 MAIN = pipex.c pipex_utils.c children_cmd.c
-MAIN_BONUS = pipex_bonus.c pipex_utils_bonus.c children_process.c
+MAIN_BONUS = pipex_bonus.c pipex_utils_bonus.c children_process.c children_process_utils.c
 PIPEX = $(addprefix $(SOURCE), $(MAIN))
 PIPEX_BONUS = $(addprefix $(SOURCE_BONUS), $(MAIN_BONUS))
 
