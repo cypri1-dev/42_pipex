@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cyprien <cyprien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:20 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 18:53:01 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/17 00:35:53 by cyprien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ char	*get_path(char **envp)
 void	exit_error(char *str)
 {
 	ft_putstr_fd(str, 2);
-	exit(2);
+	exit(1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children_process.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cyprien <cyprien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:36:51 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 18:03:31 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/17 00:13:53 by cyprien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static char	*make_cmd(char **paths, char *cmd)
 	int		i;
 
 	i = 0;
+	if(cmd == NULL)
+		return (NULL);
 	if (access(cmd, F_OK | X_OK) == 0)
 	{
 		final_cmd = cmd;
@@ -98,7 +100,8 @@ void	children_process(t_pipeb my_pipeb, char **argv, char **envp)
 		if (my_pipeb.cmd == NULL)
 		{
 			write(2, "Command not found: ", 20);
-			write(2, my_pipeb.args_cmd[0], ft_strlen(my_pipeb.args_cmd[0]));
+			if(my_pipeb.args_cmd[0] != NULL)
+				write(2, my_pipeb.args_cmd[0], ft_strlen(my_pipeb.args_cmd[0]));
 			write(2, "\n", 1);
 			free_children_process(&my_pipeb);
 			exit(1);

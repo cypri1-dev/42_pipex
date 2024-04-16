@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cyprien <cyprien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:15:59 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 17:05:51 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/17 00:33:00 by cyprien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	here_doc_infile(char *argv, t_pipeb *my_pipe)
 		if (get_next_line(0, &buffer) <= 0)
 			break ;
 		if (!buffer || ft_strncmp(argv, buffer, ft_strlen(argv) + 1) == 0)
-			break ;
+		{
+			write(fd, "\n", 1);
+			break;	
+		}
 		(write(fd, buffer, ft_strlen(buffer)), write(fd, "\n", 1),
 			free(buffer));
 	}
@@ -79,5 +82,5 @@ void	init_infile(char **argv, t_pipeb *my_pipe)
 void	exit_error(char *str)
 {
 	ft_putstr_fd(str, 2);
-	exit(2);
+	exit(1);
 }
