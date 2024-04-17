@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children_process.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyprien <cyprien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:36:51 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/17 00:13:53 by cyprien          ###   ########.fr       */
+/*   Updated: 2024/04/17 20:36:52 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,29 @@ void	free_children_process(t_pipeb *my_pipe)
 	int	i;
 
 	i = 0;
-	while (my_pipe->paths_cmd[i])
-	{
-		free(my_pipe->paths_cmd[i]);
-		i++;
-	}
-	free(my_pipe->paths_cmd);
+	// if (my_pipe->paths_cmd)
+	// {
+	// 	while (my_pipe->paths_cmd[i])
+	// 	{
+	// 		free(my_pipe->paths_cmd[i]);
+	// 		i++;
+	// 	}
+	// 	free(my_pipe->paths_cmd);
+	// }
 	i = 0;
-	while (my_pipe->args_cmd[i])
+	if (my_pipe->args_cmd)
 	{
-		free(my_pipe->args_cmd[i]);
-		i++;
+		while (my_pipe->args_cmd[i])
+		{
+			free(my_pipe->args_cmd[i]);
+			i++;
+		}
+		free(my_pipe->args_cmd);
 	}
-	free(my_pipe->args_cmd);
-	free(my_pipe->cmd);
-	free(my_pipe->tube);
-	free(my_pipe->path_env);
+	if (my_pipe->paths_cmd)
+		free(my_pipe->cmd);
+	// if (my_pipe->tube)
+	// 	free(my_pipe->tube);
 }
 
 static char	*make_cmd(char **paths, char *cmd)
@@ -42,8 +49,10 @@ static char	*make_cmd(char **paths, char *cmd)
 	int		i;
 
 	i = 0;
-	if(cmd == NULL)
+	if (cmd == NULL)
 		return (NULL);
+	if (paths == NULL)
+		return (cmd);
 	if (access(cmd, F_OK | X_OK) == 0)
 	{
 		final_cmd = cmd;
@@ -67,6 +76,7 @@ void	close_tubes(t_pipeb *my_pipe)
 	int	i;
 
 	i = 0;
+	if (my_pipe->tube)
 	while (i < my_pipe->nb_pipe)
 	{
 		close(my_pipe->tube[i]);
@@ -97,15 +107,9 @@ void	children_process(t_pipeb my_pipeb, char **argv, char **envp)
 		my_pipeb.args_cmd = ft_split(argv[2 + my_pipeb.here_doc
 				+ my_pipeb.index], ' ');
 		my_pipeb.cmd = make_cmd(my_pipeb.paths_cmd, my_pipeb.args_cmd[0]);
-		if (my_pipeb.cmd == NULL)
-		{
-			write(2, "Command not found: ", 20);
-			if(my_pipeb.args_cmd[0] != NULL)
-				write(2, my_pipeb.args_cmd[0], ft_strlen(my_pipeb.args_cmd[0]));
-			write(2, "\n", 1);
-			free_children_process(&my_pipeb);
-			exit(1);
-		}
+		// if (my_pipeb.cmd == NULL)
+		// 	error_cmd(&my_pipeb);
 		execve(my_pipeb.cmd, my_pipeb.args_cmd, envp);
+		error_cmd(&my_pipeb);
 	}
 }

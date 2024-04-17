@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:52:57 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 18:40:01 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:59:16 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ static void	init_files(t_pipe *my_pipe, char **argv, int argc)
 		exit_error("Error\nFailed to open output file!\n");
 }
 
-static void	parse_pipex(char **envp, int argc)
+static void	parse_pipex(int argc)
 {
-	if (!*envp)
-		exit_error("Error\nMissing environnement!\n");
 	if (argc != 5)
 		exit_error("Error\nInvalid numbers of arguments!\n");
 	return ;
@@ -54,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipe	my_pipe;
 
-	parse_pipex(envp, argc);
+	parse_pipex(argc);
 	init_files(&my_pipe, argv, argc);
 	if (pipe(my_pipe.tube) < 0)
 		exit_error("Error\nFailed to create pipe!\n");

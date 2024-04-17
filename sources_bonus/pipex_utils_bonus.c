@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyprien <cyprien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:15:59 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/17 00:33:00 by cyprien          ###   ########.fr       */
+/*   Updated: 2024/04/17 15:29:24 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ char	*get_path(char **envp)
 	int	i;
 
 	i = 0;
-	while (ft_strncmp("PATH", envp[i], 4))
+	while (envp[i] && ft_strncmp("PATH", envp[i], 4))
 		i++;
-	return (ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5));
+	if (ft_strncmp("PATH", envp[i], 4) == 0)
+		return (ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5));
+	else
+		return (NULL);
 }
 
 void	here_doc_infile(char *argv, t_pipeb *my_pipe)
@@ -39,19 +42,16 @@ void	here_doc_infile(char *argv, t_pipeb *my_pipe)
 		if (!buffer || ft_strncmp(argv, buffer, ft_strlen(argv) + 1) == 0)
 		{
 			write(fd, "\n", 1);
-			break;	
+			break ;
 		}
 		(write(fd, buffer, ft_strlen(buffer)), write(fd, "\n", 1),
 			free(buffer));
 	}
-	free(buffer);
-	close(fd);
+	(free(buffer), close(fd));
 	my_pipe->infile = open(".here_doc_tmp", O_RDONLY);
 	if (my_pipe->infile < 0)
-	{
-		unlink(".here_doc_tmp");
-		exit_error("Error\nFailed to open temporary input file!\n");
-	}
+		(unlink(".here_doc_tmp"),
+			exit_error("Error\nFailed to open temporary input file!\n"));
 }
 
 void	init_outfile(char *argv, t_pipeb *my_pipe)

@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:29:32 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/16 14:42:49 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:55:26 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void		tube_in_out(int in, int out);
 void		fisrt_pipe(t_pipeb *my_pipe);
 void		last_pipe(t_pipeb *my_pipe);
 void		intermediate_pipe(t_pipeb *my_pipe);
+void		error_cmd(t_pipeb *my_pipeb);
 
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		ft_putstr_fd(char *s, int fd);
