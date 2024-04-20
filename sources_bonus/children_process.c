@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:36:51 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/17 20:36:52 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/20 17:21:10 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,6 @@ void	free_children_process(t_pipeb *my_pipe)
 {
 	int	i;
 
-	i = 0;
-	// if (my_pipe->paths_cmd)
-	// {
-	// 	while (my_pipe->paths_cmd[i])
-	// 	{
-	// 		free(my_pipe->paths_cmd[i]);
-	// 		i++;
-	// 	}
-	// 	free(my_pipe->paths_cmd);
-	// }
 	i = 0;
 	if (my_pipe->args_cmd)
 	{
@@ -38,8 +28,6 @@ void	free_children_process(t_pipeb *my_pipe)
 	}
 	if (my_pipe->paths_cmd)
 		free(my_pipe->cmd);
-	// if (my_pipe->tube)
-	// 	free(my_pipe->tube);
 }
 
 static char	*make_cmd(char **paths, char *cmd)
@@ -77,10 +65,12 @@ void	close_tubes(t_pipeb *my_pipe)
 
 	i = 0;
 	if (my_pipe->tube)
-	while (i < my_pipe->nb_pipe)
 	{
-		close(my_pipe->tube[i]);
-		i++;
+		while (i < my_pipe->nb_pipe)
+		{
+			close(my_pipe->tube[i]);
+			i++;
+		}
 	}
 }
 
@@ -107,8 +97,6 @@ void	children_process(t_pipeb my_pipeb, char **argv, char **envp)
 		my_pipeb.args_cmd = ft_split(argv[2 + my_pipeb.here_doc
 				+ my_pipeb.index], ' ');
 		my_pipeb.cmd = make_cmd(my_pipeb.paths_cmd, my_pipeb.args_cmd[0]);
-		// if (my_pipeb.cmd == NULL)
-		// 	error_cmd(&my_pipeb);
 		execve(my_pipeb.cmd, my_pipeb.args_cmd, envp);
 		error_cmd(&my_pipeb);
 	}

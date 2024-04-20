@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:15 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/17 14:33:23 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/20 17:22:26 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_pipe
 	char	*cmd;
 	char	**paths_cmd;
 	char	**args_cmd;
+	char	*final_cmd;
 }			t_pipe;
 
 /*all prototyopes*/

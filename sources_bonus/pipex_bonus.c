@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:27:58 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/17 20:38:03 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/20 15:52:53 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	free_parent_process(t_pipeb *my_pipe)
 		i++;
 	}
 	free(my_pipe->paths_cmd);
-	if(my_pipe->path_env != NULL)
+	if (my_pipe->path_env != NULL)
 		free(my_pipe->path_env);
-	if(my_pipe->tube)
+	if (my_pipe->tube)
 		free(my_pipe->tube);
 }
 
@@ -79,8 +79,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < parse_args(argv[1], &my_pipe))
 		exit_error("Error\nNot enought arguments!\n");
-	init_infile(argv, &my_pipe);
-	init_outfile(argv[argc - 1], &my_pipe);
+	(init_infile(argv, &my_pipe), init_outfile(argv[argc - 1], &my_pipe));
 	my_pipe.nb_cmd = argc - 3 - my_pipe.here_doc;
 	my_pipe.nb_pipe = 2 * (my_pipe.nb_cmd - 1);
 	my_pipe.tube = (int *)malloc(sizeof(int) * (my_pipe.nb_pipe));
