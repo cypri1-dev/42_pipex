@@ -6,26 +6,11 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:57:00 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/20 18:57:33 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:11:20 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-static char	*build_cmd(char *paths, char *cmd, t_pipe *my_pipe)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(paths, "/");
-	my_pipe->final_cmd = ft_strjoin(tmp, cmd);
-	if (!my_pipe->final_cmd)
-		return (free(tmp), NULL);
-	free(tmp);
-	if (access(my_pipe->final_cmd, F_OK | X_OK) == 0)
-		return (my_pipe->final_cmd);
-	free(my_pipe->final_cmd);
-	return (NULL);
-}
 
 static void	error_execve(t_pipe *my_pipe)
 {
@@ -47,13 +32,11 @@ static void	error_execve(t_pipe *my_pipe)
 static char	*make_cmd(t_pipe *my_pipe, char **paths, char *cmd)
 {
 	int		i;
+	char	*tmp;
 
-	i = 0;
+	i = -1;
 	if (paths == NULL)
-	{
-		my_pipe->paths_cmd = NULL;
 		return (cmd);
-	}
 	if (cmd == NULL)
 		return (NULL);
 	if (access(cmd, F_OK | X_OK) == 0)
@@ -61,8 +44,17 @@ static char	*make_cmd(t_pipe *my_pipe, char **paths, char *cmd)
 		my_pipe->final_cmd = cmd;
 		return (my_pipe->final_cmd);
 	}
-	while (paths[i])
-		return (build_cmd(paths[i], cmd, my_pipe));
+	while (paths[++i])
+	{
+		tmp = ft_strjoin(paths[i], "/");
+		my_pipe->final_cmd = ft_strjoin(tmp, cmd);
+		if (!my_pipe->final_cmd)
+			return (free(tmp), NULL);
+		free(tmp);
+		if (access(my_pipe->final_cmd, F_OK | X_OK) == 0)
+			return (my_pipe->final_cmd);
+		free(my_pipe->final_cmd);
+	}
 	return (NULL);
 }
 
