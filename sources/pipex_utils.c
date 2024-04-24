@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:20 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/17 19:36:01 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:58:40 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,18 @@ char	*get_path(char **envp)
 	else
 		return (NULL);
 }
+// void	cmd_not_foud(t_pipe *my_pipe)
+// {
+// 	write(2, "Command not found: ", 20);
+// 	if(my_pipe->args_cmd[0] != NULL)
+// 		write(2, my_pipe->args_cmd[0], ft_strlen(my_pipe->args_cmd[0]));
+// 	write(2, "\n", 1);
+// 	free_child_process(my_pipe);
+// 	exit(1);
+// }
 
-void	exit_error(char *str)
-{
-	ft_putstr_fd(str, 2);
-	exit(1);
-}
+// void	exit_error(char *str)
+// {
+// 	ft_putstr_fd(str, 2);
+// 	exit(1);
+// }

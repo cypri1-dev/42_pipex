@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:52:57 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/17 18:59:16 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/24 20:00:23 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	init_files(t_pipe *my_pipe, char **argv, int argc)
 {
-	my_pipe->infile = open(argv[1], O_RDONLY);
-	if (my_pipe->infile < 0)
-		exit_error("Error\nFailed to open input file!\n");
 	my_pipe->outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (my_pipe->outfile < 0)
-		exit_error("Error\nFailed to open output file!\n");
+		file_not_foud(my_pipe, argv[argc - 1]);
+	my_pipe->infile = open(argv[1], O_RDONLY);
+	if (my_pipe->infile < 0)
+		file_not_foud(my_pipe, argv[1]);
 }
 
 static void	parse_pipex(int argc)
@@ -44,7 +44,7 @@ static void	free_cmd(t_pipe *my_pipe)
 
 static void	close_pipe(t_pipe *my_pipe)
 {
-	close(my_pipe->tube[0]);
+	close(my_pipe->tube[0]);	
 	close(my_pipe->tube[1]);
 }
 
