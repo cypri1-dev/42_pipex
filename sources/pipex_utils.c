@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:20 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/24 17:58:40 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:34:29 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ void	free_child_process(t_pipe *my_pipe)
 		i++;
 	}
 	free(my_pipe->args_cmd);
+	i = 0;
+	if (my_pipe->paths_cmd != NULL)
+	{
+		while (my_pipe->paths_cmd && my_pipe->paths_cmd[i])
+		{
+			free(my_pipe->paths_cmd[i]);
+			i++;
+		}
+		free(my_pipe->paths_cmd);
+	}
 }
 
 char	*get_path(char **envp)
@@ -53,18 +63,28 @@ char	*get_path(char **envp)
 	else
 		return (NULL);
 }
-// void	cmd_not_foud(t_pipe *my_pipe)
-// {
-// 	write(2, "Command not found: ", 20);
-// 	if(my_pipe->args_cmd[0] != NULL)
-// 		write(2, my_pipe->args_cmd[0], ft_strlen(my_pipe->args_cmd[0]));
-// 	write(2, "\n", 1);
-// 	free_child_process(my_pipe);
-// 	exit(1);
-// }
 
-// void	exit_error(char *str)
-// {
-// 	ft_putstr_fd(str, 2);
-// 	exit(1);
-// }
+void	is_a_dir(char *argv)
+{
+	if (argv != NULL)
+		write(2, argv, ft_strlen(argv));
+	write(2, ": Is a directory\n", 18);
+	exit(1);
+}
+
+int	check_dir(char *file)
+{
+	int	res;
+
+	res = open(file, O_DIRECTORY);
+	if (access(file, X_OK) == 0 && res != -1)
+	{
+		close(res);
+		return (-1);
+	}
+	if (access(file, X_OK) == 0 && access(file, F_OK) == 0)
+	{
+		return (0);
+	}
+	return (0);
+}

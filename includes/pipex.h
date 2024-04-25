@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:53:15 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/24 20:00:50 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:20:47 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct s_pipe
 	char	**paths_cmd;
 	char	**args_cmd;
 	char	*final_cmd;
+	int		exit_status;
+	int		sigpipe;
 }			t_pipe;
 
 /*all prototyopes*/
@@ -49,9 +51,11 @@ void		first_child_process(t_pipe my_pipe, char **argv, char **envp);
 void		second_child_process(t_pipe my_pipe, char **argv, char **envp);
 void		free_child_process(t_pipe *my_pipe);
 void		free_parent_process(t_pipe *my_pipe);
-void	cmd_not_foud(t_pipe *my_pipe);
-void	file_not_foud(t_pipe *my_pipe, char *argv);
-
+void		cmd_not_foud(t_pipe *my_pipe);
+void		file_not_foud(t_pipe *my_pipe, char *argv);
+int			check_dir(char *file);
+void		is_a_dir(char *argv);
+void		error_execve_spec(t_pipe *my_pipe);
 
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		ft_putstr_fd(char *s, int fd);

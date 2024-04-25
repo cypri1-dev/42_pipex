@@ -6,28 +6,30 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:36:51 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/20 17:21:10 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:45:22 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-void	free_children_process(t_pipeb *my_pipe)
+void	free_children_process(t_pipeb *my_pipeb)
 {
 	int	i;
 
 	i = 0;
-	if (my_pipe->args_cmd)
+	if (my_pipeb->args_cmd)
 	{
-		while (my_pipe->args_cmd[i])
+		while (my_pipeb->args_cmd[i])
 		{
-			free(my_pipe->args_cmd[i]);
+			free(my_pipeb->args_cmd[i]);
 			i++;
 		}
-		free(my_pipe->args_cmd);
+		free(my_pipeb->args_cmd);
 	}
-	if (my_pipe->paths_cmd)
-		free(my_pipe->cmd);
+	// if (my_pipeb->cmd)
+	// 	free(my_pipeb->cmd);
+	if (my_pipeb->tube)
+		free(my_pipeb->tube);
 }
 
 static char	*make_cmd(char **paths, char *cmd)
@@ -82,6 +84,8 @@ void	tube_in_out(int in, int out)
 
 void	children_process(t_pipeb my_pipeb, char **argv, char **envp)
 {
+	int i = 0;
+	
 	my_pipeb.pid = fork();
 	if (my_pipeb.pid == -1)
 		(close_tubes(&my_pipeb), free_children_process(&my_pipeb), exit(1));
@@ -97,6 +101,20 @@ void	children_process(t_pipeb my_pipeb, char **argv, char **envp)
 		my_pipeb.args_cmd = ft_split(argv[2 + my_pipeb.here_doc
 				+ my_pipeb.index], ' ');
 		my_pipeb.cmd = make_cmd(my_pipeb.paths_cmd, my_pipeb.args_cmd[0]);
+		if (!my_pipeb.cmd)
+		{	
+			dprintf(2, "TESTSTSTSTS\n");
+			while (my_pipeb.paths_cmd[i])
+			{
+				free(my_pipeb.paths_cmd[i]);
+				i++;
+			}
+			free(my_pipeb.paths_cmd);
+			free(my_pipeb.path_env);
+			cmd_not_foud(&my_pipeb);
+		}
+		if(check_dir(my_pipeb.cmd) == -1)
+			error_execve_spec(&my_pipeb);
 		execve(my_pipeb.cmd, my_pipeb.args_cmd, envp);
 		error_cmd(&my_pipeb);
 	}

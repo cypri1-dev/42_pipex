@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:27:58 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/20 15:52:53 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:11:41 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int	main(int argc, char **argv, char **envp)
 	t_pipeb	my_pipe;
 
 	if (argc < parse_args(argv[1], &my_pipe))
-		exit_error("Error\nNot enought arguments!\n");
-	(init_infile(argv, &my_pipe), init_outfile(argv[argc - 1], &my_pipe));
+		exit_error("Error\nInvalid numbers of arguments!\n");
+	init_files(&my_pipe, argv, argc);
 	my_pipe.nb_cmd = argc - 3 - my_pipe.here_doc;
 	my_pipe.nb_pipe = 2 * (my_pipe.nb_cmd - 1);
 	my_pipe.tube = (int *)malloc(sizeof(int) * (my_pipe.nb_pipe));

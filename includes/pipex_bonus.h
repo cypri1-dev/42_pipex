@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:29:32 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/20 17:22:19 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:36:06 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ void		fisrt_pipe(t_pipeb *my_pipe);
 void		last_pipe(t_pipeb *my_pipe);
 void		intermediate_pipe(t_pipeb *my_pipe);
 void		error_cmd(t_pipeb *my_pipeb);
+void	is_a_dir(char *argv);
+int	check_dir(char *file);
+void	init_files(t_pipeb *my_pipe, char **argv, int argc);
+void	error_execve_spec(t_pipeb *my_pipeb);
+void	cmd_not_foud(t_pipeb *my_pipeb);
 
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		ft_putstr_fd(char *s, int fd);

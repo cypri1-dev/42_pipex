@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:52:57 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/24 20:00:23 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:11:45 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 static void	init_files(t_pipe *my_pipe, char **argv, int argc)
 {
+	my_pipe->exit_status = 0;
+	my_pipe->sigpipe = 0;
+	if (check_dir(argv[argc - 1]) == -1)
+		is_a_dir(argv[argc - 1]);
+	if (check_dir(argv[1]) == -1)
+		is_a_dir(argv[1]);
 	my_pipe->outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (my_pipe->outfile < 0)
 		file_not_foud(my_pipe, argv[argc - 1]);
@@ -44,7 +50,7 @@ static void	free_cmd(t_pipe *my_pipe)
 
 static void	close_pipe(t_pipe *my_pipe)
 {
-	close(my_pipe->tube[0]);	
+	close(my_pipe->tube[0]);
 	close(my_pipe->tube[1]);
 }
 
@@ -52,8 +58,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipe	my_pipe;
 
-	parse_pipex(argc);
-	init_files(&my_pipe, argv, argc);
+	(parse_pipex(argc), init_files(&my_pipe, argv, argc));
 	if (pipe(my_pipe.tube) < 0)
 		exit_error("Error\nFailed to create pipe!\n");
 	my_pipe.paths = get_path(envp);
@@ -68,9 +73,12 @@ int	main(int argc, char **argv, char **envp)
 		free_parent_process(&my_pipe);
 	if (my_pipe.pid_2 == 0)
 		second_child_process(my_pipe, argv, envp);
-	close_pipe(&my_pipe);
-	waitpid(my_pipe.pid_1, NULL, 0);
-	waitpid(my_pipe.pid_2, NULL, 0);
+	(close_pipe(&my_pipe), waitpid(my_pipe.pid_1, &my_pipe.exit_status, 0));
+	if (!WIFEXITED(my_pipe.exit_status))
+		my_pipe.sigpipe = 1;
+	waitpid(my_pipe.pid_2, &my_pipe.exit_status, 0);
+	if (WIFEXITED(my_pipe.exit_status) && my_pipe.sigpipe)
+		my_pipe.exit_status = 130 << 8;
 	free_parent_process(&my_pipe);
-	return (0);
+	return (WEXITSTATUS(my_pipe.exit_status));
 }

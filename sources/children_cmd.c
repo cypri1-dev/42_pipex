@@ -6,7 +6,7 @@
 /*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:57:00 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/24 20:58:51 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:37:08 by cyferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 static void	error_execve(t_pipe *my_pipe)
 {
 	int	i;
-	
-	
+
 	i = 0;
-	if(my_pipe->cmd != NULL)
+	if (my_pipe->cmd != NULL)
 		write(2, my_pipe->cmd, ft_strlen(my_pipe->cmd));
 	write(2, ": command not found\n", 21);
 	while (my_pipe->args_cmd && my_pipe->args_cmd[i])
@@ -74,15 +73,18 @@ void	first_child_process(t_pipe my_pipe, char **argv, char **envp)
 	my_pipe.cmd = make_cmd(&my_pipe, my_pipe.paths_cmd, my_pipe.args_cmd[0]);
 	if (!my_pipe.cmd)
 	{
-		while (my_pipe.paths_cmd[i])
+		while (!*envp && my_pipe.paths_cmd[i])
 		{
 			free(my_pipe.paths_cmd[i]);
 			i++;
 		}
-		free(my_pipe.paths_cmd);
+		// if (my_pipe.paths_cmd)
+		// free(my_pipe.paths_cmd);
 		free(my_pipe.paths);
 		cmd_not_foud(&my_pipe);
 	}
+	if (check_dir(my_pipe.cmd) == -1)
+		error_execve_spec(&my_pipe);
 	execve(my_pipe.cmd, my_pipe.args_cmd, envp);
 	error_execve(&my_pipe);
 }
@@ -101,16 +103,18 @@ void	second_child_process(t_pipe my_pipe, char **argv, char **envp)
 	my_pipe.cmd = make_cmd(&my_pipe, my_pipe.paths_cmd, my_pipe.args_cmd[0]);
 	if (!my_pipe.cmd)
 	{
-		// free_child_process(&my_pipe);
-		while (my_pipe.paths_cmd[i])
+		while (!*envp && my_pipe.paths_cmd[i])
 		{
 			free(my_pipe.paths_cmd[i]);
 			i++;
 		}
-		free(my_pipe.paths_cmd);
+		// if (my_pipe.paths_cmd)
+		// free(my_pipe.paths_cmd);
 		free(my_pipe.paths);
 		cmd_not_foud(&my_pipe);
 	}
+	if (check_dir(my_pipe.cmd) == -1)
+		error_execve_spec(&my_pipe);
 	execve(my_pipe.cmd, my_pipe.args_cmd, envp);
 	error_execve(&my_pipe);
 }
