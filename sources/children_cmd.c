@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyferrei <cyferrei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cyprien <cyprien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:57:00 by cyferrei          #+#    #+#             */
-/*   Updated: 2024/04/25 19:37:08 by cyferrei         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:41:47 by cyprien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,16 @@ static void	error_execve(t_pipe *my_pipe)
 	}
 	if (my_pipe->args_cmd)
 		free(my_pipe->args_cmd);
-	if (my_pipe->paths)
+	if (my_pipe->final_cmd == NULL)
 		free(my_pipe->final_cmd);
+	i = 0;
+	while (my_pipe->paths_cmd && my_pipe->paths_cmd[i])
+	{
+		free(my_pipe->paths_cmd[i]);
+		i++;
+	}
+	free(my_pipe->paths_cmd);
+	free(my_pipe->paths);
 	exit(1);
 }
 
@@ -39,7 +47,10 @@ static char	*make_cmd(t_pipe *my_pipe, char **paths, char *cmd)
 
 	i = -1;
 	if (paths == NULL)
+	{
+		my_pipe->final_cmd = NULL;
 		return (cmd);
+	}
 	if (cmd == NULL)
 		return (NULL);
 	if (access(cmd, F_OK | X_OK) == 0)
